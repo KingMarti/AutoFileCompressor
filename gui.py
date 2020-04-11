@@ -1,10 +1,11 @@
 from tkinter import *
 from tkinter import filedialog, Text
-import sys
 import time
 import pathlib
 import os
 from configparser import ConfigParser
+import filewatch
+
 root = Tk() #outer body of window
 root.title("KingMarti's File Prep Bot")
 #global Variables
@@ -65,6 +66,7 @@ def run_FileWatch():
     }
     with open('config.ini', 'w') as settings:
         config.write(settings)
+    filewatch.run_FileWatch()
     
 ###################### LAYYOUT ###########################################    
 
