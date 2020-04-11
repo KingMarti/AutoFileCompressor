@@ -5,6 +5,7 @@ import pathlib
 import os
 from configparser import ConfigParser
 import filewatch
+import threading
 
 root = Tk() #outer body of window
 root.title("KingMarti's File Prep Bot")
@@ -66,7 +67,9 @@ def run_FileWatch():
     }
     with open('config.ini', 'w') as settings:
         config.write(settings)
-    filewatch.run_FileWatch()
+    t2 = threading.Thread(target=filewatch.run_FileWatch)
+    t2.deamon = True
+    t2.start()
     
 ###################### LAYYOUT ###########################################    
 
@@ -104,4 +107,6 @@ run_btn= Button(frame, text="Run File Watcher",padx=10,pady=10,bg="green", comma
 run_btn.grid(row=7,column=4)
 cancel_btn=Button(frame,text="Quit",padx=10,pady=10,bg="red", command=exit)
 cancel_btn.grid(row=7,column=0)
-root.mainloop()
+t1 = threading.Thread(target=root.mainloop)
+t1.daemon = True
+t1.start()
