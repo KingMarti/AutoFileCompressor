@@ -3,10 +3,10 @@
 block_cipher = None
 
 
-a = Analysis(['fileoverwatch.pyw'],
+a = Analysis(['fileoverwatch.py'],
              pathex=['C:\\Users\\cools\\Documents\\GitHub\\AutoFileCompressor'],
-             binaries=[('./ffmpeg/bin/ffmpeg.exe', './ffmpeg/bin/ffmpeg.exe')],
-             datas=[],
+             binaries=[],
+             datas=[('icon.ico', 'icon.ico')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
@@ -30,4 +30,4 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=False )
+          console=True )

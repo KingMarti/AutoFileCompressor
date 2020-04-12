@@ -1,7 +1,7 @@
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import time
-import ffmpypyinstall
+import ffmpy
 import os
 from configparser import ConfigParser
     
