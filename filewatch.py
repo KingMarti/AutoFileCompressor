@@ -1,7 +1,7 @@
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import time
-import ffmpy
+import ffmpypyinstall
 import os
 from configparser import ConfigParser
     
@@ -24,13 +24,13 @@ def run_FileWatch():
     class ExampleHandler(FileSystemEventHandler):
         def on_created(self,event):
             print("New File Found")
-            print("Waiting ", wait_time," For File To Complete")
+            print("Waiting ", wait_time," Seconds For File To Complete")
             time.sleep(wait_time)
             new_file = event.src_path
             file_name = os.path.basename(new_file)
             print (file_name)
             check_file = new_file[-4:]
-            if "." in check_file:
+            if "." or "w" in check_file:
                 print("it is a", check_file, "file")
                 if "mp4" or "mov" or "webm" in  check_file:
                     base_file_name = os.path.splitext(file_name)[0]
@@ -176,7 +176,7 @@ def run_FileWatch():
                         output_wmv_sd_4_3 = os.path.join(outDIR,make_wmv_sd_4_3)
                         video_wmv_sd_4_3 = ffmpy.FFmpeg(
                         inputs={new_file:None},
-                        outputs={output_wmv_sd_4_3:'-b:v 1 -vf "scale=640x480" "-y"'})
+                        outputs={output_wmv_sd_4_3:'-b:v 1M -vf "scale=640x480" "-y"'})
                         video_wmv_sd_4_3.run()
 
 ###################### END OF WMV #############################    
