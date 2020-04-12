@@ -6,6 +6,7 @@ import os
 from configparser import ConfigParser
     
 def run_FileWatch():
+    print("Loading Configuration")
     parser = ConfigParser()
     parser.read('config.ini')
     _mp4 = parser.get('app_settings','_mp4')
@@ -18,16 +19,20 @@ def run_FileWatch():
     _sd_4_3 = parser.get('app_settings','_sd_4_3')
     _watchDIR = parser.get('app_settings','filewatch')
     outDIR = parser.get('app_settings','file_out')
+    wait_time =int(parser.get('app_settings','wait_time'))
+    print("Waiting For New File...")
     class ExampleHandler(FileSystemEventHandler):
         def on_created(self,event):
+            print("New File Found")
+            print("Waiting ", wait_time," For File To Complete")
+            time.sleep(wait_time)
             new_file = event.src_path
             file_name = os.path.basename(new_file)
             print (file_name)
-            time.sleep(30)
             check_file = new_file[-4:]
             if "." in check_file:
                 print("it is a", check_file, "file")
-                if "mp4" or "mov" in  check_file:
+                if "mp4" or "mov" or "webm" in  check_file:
                     base_file_name = os.path.splitext(file_name)[0]
                     print(new_file)
                     print("its a video")
@@ -135,7 +140,7 @@ def run_FileWatch():
                         output_wmv_4k = os.path.join(outDIR,make_wmv_4k)
                         video_wmv_4k = ffmpy.FFmpeg (
                         inputs={new_file : None}, 
-                        outputs={output_wmv_4k:'-vf "scale=3840x2160" "-y"'})
+                        outputs={output_wmv_4k:'-b:v 16M -vf "scale=3840x2160" "-y"'})
                         video_wmv_4k.run()
                 
                     if _wmv == '1' and _1080p =='1':
@@ -144,7 +149,7 @@ def run_FileWatch():
                         output_wmv_1080 = os.path.join(outDIR,make_wmv_1080)
                         video_wmv_1080 = ffmpy.FFmpeg (
                         inputs={new_file : None}, 
-                        outputs={output_wmv_1080:'-vf "scale=1920x1080" "-y"'})
+                        outputs={output_wmv_1080:'-b:v 4M -vf "scale=1920x1080" "-y"'})
                         video_wmv_1080.run()
                 
                     if _wmv == '1' and _720p =='1':
@@ -153,7 +158,7 @@ def run_FileWatch():
                         output_wmv_720 = os.path.join(outDIR,make_wmv_720)
                         video_wmv_720 = ffmpy.FFmpeg (
                         inputs={new_file : None}, 
-                        outputs={output_wmv_720:'-vf "scale=1280x720" "-y"'})
+                        outputs={output_wmv_720:'-b:v 2M -vf "scale=1280x720" "-y"'})
                         video_wmv_720.run()
 
                     if _wmv == '1' and _sd_16_9 =='1':
@@ -162,7 +167,7 @@ def run_FileWatch():
                         output_wmv_sd_16_9 = os.path.join(outDIR,make_wmv_sd_16_9)
                         video_wmv_sd_16_9 = ffmpy.FFmpeg(
                         inputs={new_file:None},
-                        outputs={output_wmv_sd_16_9: '-vf "scale=720x480" "-y"'})
+                        outputs={output_wmv_sd_16_9: '-b:v 1M -vf  "scale=720x480" "-y"'})
                         video_wmv_sd_16_9.run()
                 
                     if _wmv == '1' and _sd_4_3 =='1':
@@ -171,7 +176,7 @@ def run_FileWatch():
                         output_wmv_sd_4_3 = os.path.join(outDIR,make_wmv_sd_4_3)
                         video_wmv_sd_4_3 = ffmpy.FFmpeg(
                         inputs={new_file:None},
-                        outputs={output_wmv_sd_4_3: '-vf "scale=720x480" "-y"'})
+                        outputs={output_wmv_sd_4_3:'-b:v 1 -vf "scale=640x480" "-y"'})
                         video_wmv_sd_4_3.run()
 
 ###################### END OF WMV #############################    
