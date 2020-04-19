@@ -149,7 +149,7 @@ def run_FileWatch():
                         output_wmv_1080 = os.path.join(outDIR,make_wmv_1080)
                         video_wmv_1080 = ffmpy.FFmpeg (
                         inputs={new_file : None}, 
-                        outputs={output_wmv_1080:'-b:v 4M -vf "scale=1920x1080" "-y"'})
+                        outputs={output_wmv_1080:'-b:v 6M -vf "scale=1920x1080" "-y"'})
                         video_wmv_1080.run()
                 
                     if _wmv == '1' and _720p =='1':
@@ -158,7 +158,7 @@ def run_FileWatch():
                         output_wmv_720 = os.path.join(outDIR,make_wmv_720)
                         video_wmv_720 = ffmpy.FFmpeg (
                         inputs={new_file : None}, 
-                        outputs={output_wmv_720:'-b:v 2M -vf "scale=1280x720" "-y"'})
+                        outputs={output_wmv_720:'-b:v 4M -vf "scale=1280x720" "-y"'})
                         video_wmv_720.run()
 
                     if _wmv == '1' and _sd_16_9 =='1':
@@ -167,7 +167,7 @@ def run_FileWatch():
                         output_wmv_sd_16_9 = os.path.join(outDIR,make_wmv_sd_16_9)
                         video_wmv_sd_16_9 = ffmpy.FFmpeg(
                         inputs={new_file:None},
-                        outputs={output_wmv_sd_16_9: '-b:v 1M -vf  "scale=720x480" "-y"'})
+                        outputs={output_wmv_sd_16_9: '-b:v 2M -vf  "scale=720x480" "-y"'})
                         video_wmv_sd_16_9.run()
                 
                     if _wmv == '1' and _sd_4_3 =='1':
@@ -176,7 +176,7 @@ def run_FileWatch():
                         output_wmv_sd_4_3 = os.path.join(outDIR,make_wmv_sd_4_3)
                         video_wmv_sd_4_3 = ffmpy.FFmpeg(
                         inputs={new_file:None},
-                        outputs={output_wmv_sd_4_3:'-b:v 1M -vf "scale=640x480" "-y"'})
+                        outputs={output_wmv_sd_4_3:'-b:v 2M -vf "scale=640x480" "-y"'})
                         video_wmv_sd_4_3.run()
 
 ###################### END OF WMV #############################    
